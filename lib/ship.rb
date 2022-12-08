@@ -7,7 +7,7 @@ class Ship
     end
 
     def sunk?
-        health.zero? 
+        @health.zero? 
     end
 
     def hit
