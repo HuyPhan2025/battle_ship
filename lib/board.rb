@@ -26,15 +26,41 @@ class Board
     end
     
     def valid_placement?(ship, coordinates) 
-        ship.length == coordinates.length
+        ship.length == coordinates.length &&
+        horizontal_valid_placement?(coordinates) &&
+        vertical_valid_placement?(coordinates) 
     end
     
-    def consecutive_valid_placement?(ship, coordinates)
-
-        
-        
-        
+    def duplicate_letter?(coordinates)
+        letter = coordinates.map { |coordinate| coordinate.split('').first }
+        letter.each_cons(2).all? { |letter_1, letter_2| letter_1 == letter_2 }
     end
+
+    def consecutive_number?(coordinates)
+        number = coordinates.map { |coordinate| coordinate.split('').last }
+        number.each_cons(2).all? { |number_1, number_2| number_2.to_i - 1 == number_1.to_i }
+    end
+
+    def horizontal_valid_placement?(coordinates)
+        duplicate_letter?(coordinates) && consecutive_number?(coordinates)
+    end
+
+    def consecutive_letter?(coordinates)
+        letter = coordinates.map { |coordinate| coordinate.split('').first }
+        letter.each_cons(2).all? { |letter_1, letter_2| letter_2.ord - 1 == letter_1.ord }
+    end
+
+    def duplicate_number?(coordinates)
+        number = coordinates.map { |coordinate| coordinate.split('').last }
+        number.each_cons(2).all? { |number_1, number_2| number_2.to_i == number_1.to_i }
+    end
+
+    def vertical_valid_placement?(coordinates)
+        consecutive_letter?(coordinates) && duplicate_number?(coordinates)
+    end
+
+
+    
 end
 
     
