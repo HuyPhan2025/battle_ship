@@ -85,7 +85,9 @@ class Board
 
     end
 
-   
+   def render(option = false)
+    
+   end
 end
 
     
