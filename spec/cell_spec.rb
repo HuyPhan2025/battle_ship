@@ -30,7 +30,7 @@ RSpec.describe Cell do
     end
 
     it "fire upon?" do
-
+        # require 'pry'; binding.pry
         cell.place_ship(cruiser)
         expect(cell.fired_upon?).to eq(false)
         cell.fire_upon

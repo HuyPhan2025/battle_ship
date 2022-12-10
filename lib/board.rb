@@ -23,12 +23,15 @@ class Board
     
     def valid_coordinate?(coordinate)
         @cells[coordinate] != nil
+        # require 'pry'; binding.pry
     end
     
     def valid_placement?(ship, coordinates) 
-        ship.length == coordinates.length &&
-        horizontal_valid_placement?(coordinates) &&
-        vertical_valid_placement?(coordinates) 
+        valid = coordinates.all? do |coordinate|
+            valid_coordinate?(coordinate)
+            # require 'pry'; binding.pry
+        end 
+        valid && ship.length == coordinates.length && empty_cell?(coordinates) && (horizontal_valid_placement?(coordinates) || vertical_valid_placement?(coordinates)) 
     end
     
     def duplicate_letter?(coordinates)
@@ -59,8 +62,42 @@ class Board
         consecutive_letter?(coordinates) && duplicate_number?(coordinates)
     end
 
+    def place(ship, coordinates)
 
-    
+        if valid_placement?(ship,coordinates) == true
+            coordinates.each do |coordinate|
+               
+                @cells[coordinate].place_ship(ship)
+                # require 'pry'; binding.pry
+            end
+         
+         # require 'pry'; binding.pry
+        end
+
+    end
+
+    def empty_cell?(coordinates)
+        
+        coordinates.all? do |coordinate|
+          @cells[coordinate].empty? 
+        #  require 'pry'; binding.pry
+        end 
+
+    end
+
+   
 end
 
     
+
+
+
+
+
+
+
+
+
+
+
+

@@ -30,31 +30,63 @@ RSpec.describe Board do
         
     end
 
-    it "valid_placement?" do
+    describe "valid_placement?" do
+        it "invalid_coordinates" do
 
-        expect(board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
-        expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
-        # expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to eq(true)
-        # expect(board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
+            expect(board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
+            expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
+  
+        end
+
+        it "invalid_consecutive" do
+            expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to eq(false)
+            expect(board.valid_placement?(submarine, ["A1", "C1"])).to eq(false)
+            expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to eq(false)
+            expect(board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
+        end
+
+        it "invalid_diagonal" do
+            expect(board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to eq(false)
+            expect(board.valid_placement?(submarine, ["C2", "D3"])).to eq(false)
+        end
+
+        it "valid_coordinate" do
+            expect(board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
+            expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to eq(true)
+        end
+    end
+
+    it "placing_ships" do
+
+        board.place(cruiser, ["A1", "A2", "A3"])   
+        cell_1 = board.cells["A1"] 
+        cell_2 = board.cells["A2"]
+        cell_3 = board.cells["A3"]
+
+
+        expect(cell_1.ship).to eq(cruiser)
+        expect(cell_2.ship).to eq(cruiser)
+        expect(cell_3.ship).to eq(cruiser)
+        expect(cell_3.ship == cell_2.ship).to eq(true)
 
     end
 
-    it "consecutive_valid_placement?" do
-        expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to eq(false)
-        expect(board.valid_placement?(submarine, ["A1", "C1"])).to eq(false)
-        expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to eq(false)
-        expect(board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
+    it "can't_overlap" do
+
+        board.place(cruiser, ["A1", "A2", "A3"])
+       
+        expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
+
     end
 
-    it "!diagonal_valid_placement?" do
-        expect(board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to eq(false)
-        expect(board.valid_placement?(submarine, ["C2", "D3"])).to eq(false)
-    end
+    it "rendering the board" do
 
-    it "true_valid_placement?" do
-        expect(board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
-        expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to eq(true)
-    end
+        board.place(cruiser, ["A1", "A2", "A3"]) 
+
+        expect(board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+        expect(board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+
+    end 
 
 
 end
