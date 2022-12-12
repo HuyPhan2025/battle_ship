@@ -33,19 +33,99 @@ class Game
             coordinates = valid_cpu_coordinates(ship)
             @cpu_board.place(ship, coordinates)
         end
+        puts @cpu_board.render(show = true)
+    end
+
+    def place_player_cruiser
+        puts "I have laid out my ships on the grid."
+        puts "You now need to lay out your two ships."
+        puts "The Cruiser is three units long and the Submarine is two units long."
+        puts "Enter the squares for the Cruiser (3 spaces):"
+        puts ">"
+
+        user_input = gets.chomp.upcase.split 
+
+        until @player_board.valid_placement?(@player_cruiser, user_input) == true 
+            puts "Try again, type in different coordinates"
+            user_input = gets.chomp.upcase.split 
+        end
+        @player_board.place(@player_cruiser, user_input)
+         puts @player_board.render(show = true)
+    end
+
+    def place_player_submarine 
+
+        puts "Enter the squares for the Submarine (2 spaces):"
+        puts ">" 
+
+        user_input = gets.chomp.upcase.split
+
+        until @player_board.valid_placement?(@player_submarine, user_input) == true 
+            puts "Try again, type in different coordinates"
+            user_input = gets.chomp.upcase.split 
+        end
+        @player_board.place(@player_submarine, user_input)
+         puts @player_board.render(show = true)
+    end
+
+    def turn
+        puts "=============COMPUTER BOARD============="
+        puts @cpu_board.render
+        puts "==============PLAYER BOARD=============="
+        puts @player_board.render(show = true)
+        player_shot
+        cpu_shot
+        turn
+    end
+
+    def player_shot
+        puts "Please enter the coordinate you want to fire upon."
+        fire_input = gets.chomp.upcase
+    
+        until @cpu_board.valid_coordinate?(fire_input) && @cpu_board.cells[fire_input].fired_upon? == false
+            puts "Invalid coordinate.  Pick a different coordinate that is valid, wtf."
+            fire_input = gets.chomp.upcase
+        end
+    
+        @cpu_board.cells[fire_input].fire_upon
+        fire_input 
+    
+    end
+
+    def cpu_shot
+        cpu_shot = @player_board.cells.keys.sample
+    
+        until @player_board.cells[cpu_shot].fired_upon? == false
+            cpu_shot = @player_board.cells.keys.sample
+        end
+    
+        @player_board.cells[cpu_shot].fire_upon
+        cpu_shot
     end
 
     def start 
-        p "Welcome to BATTLESHIP"
-        p "Enter p to play. Enter q to quit."
+        puts "Welcome to BATTLESHIP"
+        puts "Enter p to play. Enter q to quit."
 
-        user_input = gets.chomp.upcase
+        user_input = gets.chomp.downcase
         if user_input == "p"
             place_cpu_ships
+            place_player_cruiser
+            place_player_submarine
+            turn
+            
         else
             p "Come again"
         end
     end
+
+  
+
+
+
+
+
+
 
 
 end
