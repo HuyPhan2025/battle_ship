@@ -75,7 +75,15 @@ class Game
         puts @player_board.render(show = true)
         player_shot
         cpu_shot
-        turn
+        if @cpu_cruiser.sunk? && @cpu_submarine.sunk?
+            puts "You win you beautiful bastard!"
+
+        elsif @player_cruiser.sunk? && @player_submarine.sunk?
+            puts "Better luck next time you good for nothing slug!"
+
+        else 
+            turn
+        end
     end
 
     def player_shot
@@ -118,14 +126,4 @@ class Game
             p "Come again"
         end
     end
-
-  
-
-
-
-
-
-
-
-
 end
