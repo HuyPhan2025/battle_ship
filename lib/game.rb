@@ -84,6 +84,8 @@ class Game
         else 
             turn
         end
+        start 
+
     end
 
     def player_shot
