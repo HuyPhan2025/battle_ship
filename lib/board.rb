@@ -26,13 +26,11 @@ class Board
     
     def valid_coordinate?(coordinate)
         @cells[coordinate] != nil
-        # require 'pry'; binding.pry
     end
     
     def valid_placement?(ship, coordinates) 
         valid = coordinates.all? do |coordinate|
             valid_coordinate?(coordinate)
-            # require 'pry'; binding.pry
         end 
         valid && ship.length == coordinates.length && empty_cell?(coordinates) && (horizontal_valid_placement?(coordinates) || vertical_valid_placement?(coordinates)) 
     end
@@ -72,16 +70,12 @@ class Board
                 @cells[coordinate].place_ship(ship)
             end
         end
-
     end
 
-    def empty_cell?(coordinates)
-        
+    def empty_cell?(coordinates)        
         coordinates.all? do |coordinate|
           @cells[coordinate].empty? 
-        #  require 'pry'; binding.pry
         end 
-
     end
 
     def render(show = false)
@@ -98,10 +92,7 @@ class Board
             "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \n" \
             "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
         end
-
-    end 
-        
-
+    end        
 end
 
     
