@@ -26,4 +26,26 @@ class Game
         end
         coordinates 
     end
+
+    def place_cpu_ships
+        ships = [@cpu_cruiser, @cpu_submarine]
+        ships.each do |ship|
+            coordinates = valid_cpu_coordinates(ship)
+            @cpu_board.place(ship, coordinates)
+        end
+    end
+
+    def start 
+        p "Welcome to BATTLESHIP"
+        p "Enter p to play. Enter q to quit."
+
+        user_input = gets.chomp.upcase
+        if user_input == "p"
+            place_cpu_ships
+        else
+            p "Come again"
+        end
+    end
+
+
 end

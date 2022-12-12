@@ -26,4 +26,11 @@ RSpec.describe Game do
         expect(game.valid_cpu_coordinates(cpu_cruiser).length).to eq(cpu_cruiser.length)
         expect(game.valid_cpu_coordinates(cpu_submarine).length).to eq(cpu_submarine.length)
     end
+
+    it "place_cpu_ships" do
+        game.place_cpu_ships
+        expect(game.cpu_board.cells.values.map(&:ship).compact.empty?).to eq(false)
+    end
+
+
 end

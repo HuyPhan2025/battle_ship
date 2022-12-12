@@ -68,13 +68,9 @@ class Board
     def place(ship, coordinates)
 
         if valid_placement?(ship,coordinates) == true
-            coordinates.each do |coordinate|
-               
+            coordinates.each do |coordinate|  
                 @cells[coordinate].place_ship(ship)
-                # require 'pry'; binding.pry
             end
-         
-         # require 'pry'; binding.pry
         end
 
     end
