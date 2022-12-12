@@ -47,5 +47,14 @@ class Game
         end
     end
 
+    def turn_action
+        p "I have laid out my ships the grid."
+        p "You now need to lay out your two ships."
+        p "The Cruiser is three units long and the Submarine is two units long."
 
+
+
+
+
+    end
 end
