@@ -31,6 +31,4 @@ RSpec.describe Game do
         game.place_cpu_ships
         expect(game.cpu_board.cells.values.map(&:ship).compact.empty?).to eq(false)
     end
-
-
 end
