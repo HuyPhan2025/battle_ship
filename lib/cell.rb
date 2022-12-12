@@ -38,12 +38,10 @@ class Cell
     end
 
     def render(show = false)
-
-        
+       
         if fired_upon? 
             return "M" if empty?
             return "X" if ship.sunk?
-            # require "pry"; binding.pry
             return "H" if !empty?
         end
         return "S" if !empty? && show == true

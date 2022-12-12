@@ -87,8 +87,9 @@ class Game
             fire_input = gets.chomp.upcase
         end
     
-        @cpu_board.cells[fire_input].fire_upon
-        fire_input 
+        @cpu_board.cells[fire_input].fire_upon 
+        player_report_shot(fire_input)
+       
     
     end
 
@@ -100,7 +101,28 @@ class Game
         end
     
         @player_board.cells[cpu_shot].fire_upon
-        cpu_shot
+        cpu_report_shot(cpu_shot)
+        
+    end
+
+    def player_report_shot(player_shot)
+        if @cpu_board.cells[player_shot].render == "M"
+            puts "No Cigar!"
+        elsif @cpu_board.cells[player_shot].render == "H"
+            puts "You got me you goodie two shoes."
+        elsif @cpu_board.cells[player_shot].render == "X"
+            puts "You got me this time you insolent!"
+        end
+    end
+
+    def cpu_report_shot(cpu_shot)
+        if @player_board.cells[cpu_shot].render == "M"
+            puts "You got lucky this time punk!"
+        elsif @player_board.cells[cpu_shot].render == "X"
+            puts "Down to the sea bottom with you!"
+        elsif @player_board.cells[cpu_shot].render == "H"
+            puts "That's what you get for trying to capture me!"
+        end
     end
 
     def start 
