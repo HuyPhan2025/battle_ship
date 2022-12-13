@@ -33,7 +33,7 @@ class Game
             coordinates = valid_cpu_coordinates(ship)
             @cpu_board.place(ship, coordinates)
         end
-        puts @cpu_board.render(show = true)
+        puts @cpu_board.render(show = false)
     end
 
     def place_player_cruiser
@@ -46,7 +46,7 @@ class Game
         user_input = gets.chomp.upcase.split 
 
         until @player_board.valid_placement?(@player_cruiser, user_input) == true 
-            puts "Try again, type in different coordinates"
+            puts "Try again, please entered a valid coordinates"
             user_input = gets.chomp.upcase.split 
         end
         @player_board.place(@player_cruiser, user_input)
@@ -54,14 +54,13 @@ class Game
     end
 
     def place_player_submarine 
-
         puts "Enter the squares for the Submarine (2 spaces):"
         puts ">" 
 
         user_input = gets.chomp.upcase.split
 
         until @player_board.valid_placement?(@player_submarine, user_input) == true 
-            puts "Try again, type in different coordinates"
+            puts "Try again, type in different coordinates, example A1 A2"
             user_input = gets.chomp.upcase.split 
         end
         @player_board.place(@player_submarine, user_input)
@@ -79,8 +78,7 @@ class Game
             puts "You win you beautiful bastard!"
 
         elsif @player_cruiser.sunk? && @player_submarine.sunk?
-            puts "Better luck next time you good for nothing slug!"
-
+            puts "Better luck next time, you good for nothing slug!"
         else 
             turn
         end
@@ -93,14 +91,11 @@ class Game
         fire_input = gets.chomp.upcase
     
         until @cpu_board.valid_coordinate?(fire_input) && @cpu_board.cells[fire_input].fired_upon? == false
-            puts "Invalid coordinate.  Pick a different coordinate that is valid, wtf."
+            puts "Invalid coordinate.  Pick a different coordinate that is valid you hooligan."
             fire_input = gets.chomp.upcase
-        end
-    
+        end    
         @cpu_board.cells[fire_input].fire_upon 
-        player_report_shot(fire_input)
-       
-    
+        player_report_shot(fire_input)           
     end
 
     def cpu_shot
@@ -108,20 +103,18 @@ class Game
     
         until @player_board.cells[cpu_shot].fired_upon? == false
             cpu_shot = @player_board.cells.keys.sample
-        end
-    
+        end    
         @player_board.cells[cpu_shot].fire_upon
-        cpu_report_shot(cpu_shot)
-        
+        cpu_report_shot(cpu_shot)       
     end
 
     def player_report_shot(player_shot)
         if @cpu_board.cells[player_shot].render == "M"
-            puts "No Cigar!"
+            puts "No Cigar, you're a terrible shot!"
         elsif @cpu_board.cells[player_shot].render == "H"
             puts "You got me you goodie two shoes."
         elsif @cpu_board.cells[player_shot].render == "X"
-            puts "You got me this time you insolent!"
+            puts "You got me this time you insolent dog!"
         end
     end
 
@@ -131,7 +124,7 @@ class Game
         elsif @player_board.cells[cpu_shot].render == "X"
             puts "Down to the sea bottom with you!"
         elsif @player_board.cells[cpu_shot].render == "H"
-            puts "That's what you get for trying to capture me!"
+            puts "That's what you get for trying to sink my battleships!"
         end
     end
 
@@ -144,9 +137,9 @@ class Game
             place_cpu_ships
             place_player_cruiser
             place_player_submarine
-            turn
-            
-        else
+           turn
+        else  
+            user_input == "q"
             p "Come again"
         end
     end
