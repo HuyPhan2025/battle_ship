@@ -19,7 +19,6 @@ RSpec.describe Ship do
         cruiser = Ship.new("Cruiser", 3)
 
         expect(cruiser.sunk?).to eq(false)
-
     end
 
     it "hit" do
