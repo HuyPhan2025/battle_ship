@@ -1,5 +1,4 @@
-require 'rspec'
-require './lib/ship'
+require './spec/spec_helper'
 
 RSpec.describe Ship do
     it "exists" do

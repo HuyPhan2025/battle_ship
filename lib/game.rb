@@ -137,7 +137,7 @@ class Game
             place_cpu_ships
             place_player_cruiser
             place_player_submarine
-           turn
+            turn
         else  
             user_input == "q"
             p "Come again"
