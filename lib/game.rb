@@ -140,7 +140,7 @@ class Game
             turn
         else  
             user_input == "q"
-            p "Come again"
+            p "Come again, have a good day"
         end
     end
 end
